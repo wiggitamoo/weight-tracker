@@ -68,6 +68,11 @@
 		</div>
 		<!-- /.carousel -->
 		
+		<div class="alert alert-success" id="submitWeightSuccessAlert">
+	    	<a href="#" class="close" data-dismiss="alert">&times;</a>
+		    <div id="alertMessage"><strong>Success!</strong> Your weight has been recorded.</div>	
+		</div>
+		
 		<div class="hero-unit">
 			<div>
 				<h1>Welcome to Weight Tracker!</h1>
@@ -84,13 +89,6 @@
 				<br/>
 				<button class="btn btn-primary" type="submit">Submit Weight</button>
 			</form>
-		</div>
-		
-		<br>
-		
-		<div class="alert alert-success" id="submitWeightSuccessAlert">
-	    	<a href="#" class="close" data-dismiss="alert">&times;</a>
-		    <div id="alertMessage"><strong>Success!</strong> Your weight has been recorded.</div>	
 		</div>
 
 	</div>
