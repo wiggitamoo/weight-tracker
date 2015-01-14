@@ -36,22 +36,13 @@
 			
 			<div class="carousel-inner">
 				<div class="item active"> <!-- class of active since it's the first item -->
-					<img src="http://placehold.it/1200x480" alt="" />
-					<div class="carousel-caption">
-						<p>Caption text here</p>
-					</div>
+					<div id="andreChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 				</div>
 				<div class="item">
-					<img src="http://placehold.it/1200x480" alt="" />
-					<div class="carousel-caption">
-						<p>Caption text here</p>
-					</div>
+					<div id="paolaChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 				</div>
 				<div class="item">
-					<img src="http://placehold.it/1200x480" alt="" />
-					<div class="carousel-caption">
-						<p>Caption text here</p>
-					</div>
+					<div id="cheekyChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 				</div>
 			</div> <!-- /.carousel-inner -->
 			

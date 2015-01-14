@@ -1,153 +1,127 @@
-define(['Chart'], function (Chart) {
-	function createAndreChart(data, options) {
-		// Get the context of the canvas element we want to select
-		var ctx = $("#andreChart").get(0).getContext("2d");
-		// This will get the first returned node in the jQuery collection.
-		var andreChart = new Chart(ctx).Line(data, options);
-	}
-	function createPaolaChart(data, options) {
-		// Get the context of the canvas element we want to select
-		var ctx = $("#paolaChart").get(0).getContext("2d");
-		// This will get the first returned node in the jQuery collection.
-		var paolaChart = new Chart(ctx).Line(data, options);
-	}
-	function createCheekyChart(data, options) {
-		// Get the context of the canvas element we want to select
-		var ctx = $("#cheekyChart").get(0).getContext("2d");
-		// This will get the first returned node in the jQuery collection.
-		var cheekyChart = new Chart(ctx).Line(data, options);
+define(['hchart','hmore','hgray'], function (hc, hm, hg) {
+	function init() {
+		console.log("charts!");
 	}
 	
-	function init() {
-		console.log("charts!")
+	function createChart(chartId, options) {
+		var thisChart = chartId.highcharts({
+	        title: options.title,
+	        xAxis: options.xAxis,
+	        yAxis: options.yAxis,
+	        tooltip: options.tooltip,
+	        legend: options.legend,
+	        series: options.series
+	    });
+		return thisChart;
+	}
+	
+	function getData(person) {
+		// retrieve data for person
+		var query = "select * from weight where firstname = '" + person + "' order by update_ts";
 		
-		// configure chart defaults
-		Chart.defaults.global = {
-			    // Boolean - Whether to animate the chart
-			    animation: true,
+		
+		var data = {
+				ranges: [
+				            [1246406400000, 14.3, 27.7],
+				            [1246492800000, 14.5, 27.8],
+				            [1246579200000, 15.5, 29.6],
+				            [1246665600000, 16.7, 30.7],
+				            [1246752000000, 16.5, 25.0],
+				            [1246838400000, 17.8, 25.7],
+				         
+				            [1248134400000, 12.2, 15.5],
+				            [1248220800000, 12.0, 20.8],
+				            [1248307200000, 12.0, 17.1],
+				            [1248393600000, 12.7, 18.3],
+				            [1248480000000, 12.4, 19.4],
+				            [1248566400000, 12.6, 19.9],
+				            [1248652800000, 11.9, 20.2],
+				            [1248739200000, 11.0, 19.3],
+				            [1248825600000, 10.8, 17.8],
+				            [1248912000000, 11.8, 18.5],
+				            [1248998400000, 10.8, 16.1]
+				        ],
+				        averages: [
+				            [1246406400000, 21.5],
+				            [1246492800000, 22.1],
+				            [1246579200000, 23],
+				            [1246665600000, 23.8],
+				            [1246752000000, 21.4],
+				            [1246838400000, 21.3],
+				          
+				            [1247529600000, 16.8],
+				            [1247616000000, 17.7],
+				            [1247702400000, 16.3],
+				            [1247788800000, 17.8],
+				            [1247875200000, 18.1],
+				            [1247961600000, 17.2],
+				            [1248048000000, 14.4],
+				            [1248134400000, 13.7],
+				        
+				            [1248739200000, 14.8],
+				            [1248825600000, 14.4],
+				            [1248912000000, 15],
+				            [1248998400000, 13.6]
+				        ]
+		};
+		return data;
+	}
+	
+	function getOptions(data) {
+		var options = {
+				title: {
+		            text: data.name + '\'s Weight'
+		        },
 
-			    // Number - Number of animation steps
-			    animationSteps: 60,
+		        xAxis: {
+		            type: 'datetime',
+		            title: {
+		            	text: 'Date'
+		            }
+		        },
 
-			    // String - Animation easing effect
-			    animationEasing: "easeOutQuart",
+		        yAxis: {
+		            title: {
+		                text: (data.name=='Cheeky') ? 'Weight (oz)' : 'Weight (lbs)'
+		            }
+		        },
 
-			    // Boolean - If we should show the scale at all
-			    showScale: true,
+		        tooltip: {
+		            crosshairs: true,
+		            shared: true,
+		            valueSuffix: (data.name=='Cheeky') ? ' oz' : ' lbs'
+		        },
 
-			    // Boolean - If we want to override with a hard coded scale
-			    scaleOverride: false,
-
-			    // ** Required if scaleOverride is true **
-			    // Number - The number of steps in a hard coded scale
-			    scaleSteps: null,
-			    // Number - The value jump in the hard coded scale
-			    scaleStepWidth: null,
-			    // Number - The scale starting value
-			    scaleStartValue: null,
-
-			    // String - Colour of the scale line
-			    scaleLineColor: "rgba(0,0,0,.1)",
-
-			    // Number - Pixel width of the scale line
-			    scaleLineWidth: 1,
-
-			    // Boolean - Whether to show labels on the scale
-			    scaleShowLabels: true,
-
-			    // Interpolated JS string - can access value
-			    scaleLabel: "<%=value%>",
-
-			    // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
-			    scaleIntegersOnly: true,
-
-			    // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-			    scaleBeginAtZero: false,
-
-			    // String - Scale label font declaration for the scale label
-			    scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
-			    // Number - Scale label font size in pixels
-			    scaleFontSize: 12,
-
-			    // String - Scale label font weight style
-			    scaleFontStyle: "normal",
-
-			    // String - Scale label font colour
-			    scaleFontColor: "#666",
-
-			    // Boolean - whether or not the chart should be responsive and resize when the browser does.
-			    responsive: true,
-
-			    // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-			    maintainAspectRatio: true,
-
-			    // Boolean - Determines whether to draw tooltips on the canvas or not
-			    showTooltips: true,
-
-			    // Array - Array of string names to attach tooltip events
-			    tooltipEvents: ["mousemove", "touchstart", "touchmove"],
-
-			    // String - Tooltip background colour
-			    tooltipFillColor: "rgba(0,0,0,0.8)",
-
-			    // String - Tooltip label font declaration for the scale label
-			    tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
-			    // Number - Tooltip label font size in pixels
-			    tooltipFontSize: 14,
-
-			    // String - Tooltip font weight style
-			    tooltipFontStyle: "normal",
-
-			    // String - Tooltip label font colour
-			    tooltipFontColor: "#fff",
-
-			    // String - Tooltip title font declaration for the scale label
-			    tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
-			    // Number - Tooltip title font size in pixels
-			    tooltipTitleFontSize: 14,
-
-			    // String - Tooltip title font weight style
-			    tooltipTitleFontStyle: "bold",
-
-			    // String - Tooltip title font colour
-			    tooltipTitleFontColor: "#fff",
-
-			    // Number - pixel width of padding around tooltip text
-			    tooltipYPadding: 6,
-
-			    // Number - pixel width of padding around tooltip text
-			    tooltipXPadding: 6,
-
-			    // Number - Size of the caret on the tooltip
-			    tooltipCaretSize: 8,
-
-			    // Number - Pixel radius of the tooltip border
-			    tooltipCornerRadius: 6,
-
-			    // Number - Pixel offset from point x to tooltip edge
-			    tooltipXOffset: 10,
-
-			    // String - Template string for single tooltips
-			    tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
-
-			    // String - Template string for single tooltips
-			    multiTooltipTemplate: "<%= value %>",
-
-			    // Function - Will fire on animation progression.
-			    onAnimationProgress: function(){},
-
-			    // Function - Will fire on animation completion.
-			    onAnimationComplete: function(){}
-			};
+		        legend: {
+		        },
+		        
+		        series: [{
+		            name: 'Weight',
+		            data: data.series,
+		            zIndex: 1,
+		            marker: {
+		                fillColor: 'white',
+		                lineWidth: 2,
+		                lineColor: Highcharts.getOptions().colors[0]
+		            }
+		        }, {
+		            name: 'Margins',
+		            data: data.average,
+		            type: 'arearange',
+		            lineWidth: 0,
+		            linkedTo: ':previous',
+		            color: Highcharts.getOptions().colors[0],
+		            fillOpacity: 0.3,
+		            zIndex: 0
+		        }]
+		};
+		return options;
 	}
 	
 	return {
 		init:init,
-		createAndreChart:createAndreChart,
-		createPaolaChart:createPaolaChart,
-		createCheekyChart:createCheekyChart
+		createChart:createChart,
+		getData:getData,
+		getOptions:getOptions
 	};
 });

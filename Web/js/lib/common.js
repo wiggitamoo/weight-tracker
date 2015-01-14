@@ -8,7 +8,10 @@
 requirejs.config({
     baseUrl: 'js/lib',
     paths: {
-        app: '../app'
+    	app: '../app',
+    	hchart: 'highcharts/highcharts',
+        hgray: 'highcharts/themes/gray',
+        hmore: 'highcharts/highcharts-more'
     },
     shim: {
         backbone: {
@@ -17,6 +20,15 @@ requirejs.config({
         },
         underscore: {
             exports: '_'
+        },
+        hchart: {
+            exports: 'Highcharts'
+        },
+        hmore: {
+        	deps: ['hchart']
+        },
+        hgray: {
+        	deps: ['hchart']
         }
     }
 });
